@@ -1,99 +1,155 @@
-Ans 1.
+﻿Ans 1. 
+
+
 def calculate_area(length, width):
-if length == width:
-return "This is a square!"
-else:
-return length * width
+    if length == width:
+        return "This is a square!"
+    else:
+        return length * width
+
+
 def main():
-length = float(input("Enter the length: "))
-width = float(input("Enter the width: "))
-result = calculate_area(length, width)
-print(result)
+    
+    length = float(input("Enter the length: "))
+    width = float(input("Enter the width: "))
+
+
+    result = calculate_area(length, width)
+
+
+    print(result)
+
+
 if __name__ == "__main__":
-main()
+    main()
+
+
+
 
 Ans 2.
+
+
 def fibonacci_recursiv(n):
-if n <= 0:
-return []
-elif n == 1:
-return [0]
-elif n == 2:
-return [0, 1]
-else:
-fib_sequence = fibonacci_recursive(n - 1)
-fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
-return fib_sequence
-def main():
-n = int(input("Enter the number"))
-fibonacci_sequence = fibonacci_recursive(n)
-print("Fibonacci sequence up to {} terms:".format(n))
-print(fibonacci_sequence)
-if __name__ == "__main__":
-main()
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    elif n == 2:
+        return [0, 1]
+    else:
+        fib_sequence = fibonacci_recursive(n - 1)
+        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
+        return fib_sequence
 
-Ans 3.
+
+def main():
+    
+    n = int(input("Enter the number"))
+
+
+    fibonacci_sequence = fibonacci_recursive(n)
+    print("Fibonacci sequence up to {} terms:".format(n))
+    print(fibonacci_sequence)
+if __name__ == "__main__":
+    main()
+Ans 3. 
+
+
 pip install mysql-connector-python
+
+
 import mysql.connector
+
+
 # Function to create a new student record in the "students" table
+
+
 def create_student_record(cursor):
-# Inserting a new student record
-insert_query = "INSERT INTO students (first_name, last_name, age, grade) VALUES (%s,
-%s, %s, %s)"
-data = ("Alice", "Smith", 18, 95.5)
-cursor.execute(insert_query, data)
+    # Inserting a new student record
+    insert_query = "INSERT INTO students (first_name, last_name, age, grade) VALUES (%s,   %s, %s, %s)"
+    data = ("Alice", "Smith", 18, 95.5)
+    cursor.execute(insert_query, data)
+
+
 # Function to update the grade of the student with the first name "Alice"
+
+
 def update_student_grade(cursor):
-# Updating the grade of the student with the first name "Alice"
-update_query = "UPDATE students SET grade = %s WHERE first_name = %s"
-data = (97.0, "Alice")
-cursor.execute(update_query, data)
+    # Updating the grade of the student with the first name "Alice"
+    update_query = "UPDATE students SET grade = %s WHERE first_name = %s"
+    data = (97.0, "Alice")
+    cursor.execute(update_query, data)
+
+
 # Function to delete the student with the last name "Smith"
+
+
 def delete_student(cursor):
-# Deleting the student with the last name "Smith"
-delete_query = "DELETE FROM students WHERE last_name = %s"
-data = ("Smith",)
-cursor.execute(delete_query, data)
+    # Deleting the student with the last name "Smith"
+    delete_query = "DELETE FROM students WHERE last_name = %s"
+    data = ("Smith",)
+    cursor.execute(delete_query, data)
+
+
 # Function to fetch and display all student records from the "students" table
+
+
 def display_all_students(cursor):
-# Fetching all student records
-select_query = "SELECT * FROM students"
-cursor.execute(select_query)
-# Displaying the fetched records
-students = cursor.fetchall()
-for student in students:
 
-print(student)
+
+    # Fetching all student records
+
+
+    select_query = "SELECT * FROM students"
+    cursor.execute(select_query)
+
+
+    # Displaying the fetched records
+
+
+    students = cursor.fetchall()
+    for student in students:
+        print(student)
+
+
 def main():
-# Connecting to the MySQL database
-connection = mysql.connector.connect(
-host="your_host",
-user="your_username",
-password="your_password",
-database="your_database"
-)
-# Creating a cursor
-cursor = connection.cursor()
-# Creating the "students" table if it doesn't exist
-create_table_query = """
-CREATE TABLE IF NOT EXISTS students (
-student_id INT AUTO_INCREMENT PRIMARY KEY,
-first_name VARCHAR(50),
-last_name VARCHAR(50),
-age INT,
-grade FLOAT
-)
-"""
-cursor.execute(create_table_query)
-# Calling functions to perform database operations
-create_student_record(cursor)
-update_student_grade(cursor)
-delete_student(cursor)
-display_all_students(cursor)
-# Committing the changes and closing the connection
-connection.commit()
-connection.close()
-if __name__ == "__main__":
-main()
+    # Connecting to the MySQL database
+    connection = mysql.connector.connect(
+        host="your_host",
+        user="your_username",
+        password="your_password",
+        database="your_database"
+    )
 
-
+
+    # Creating a cursor
+    cursor = connection.cursor()
+
+
+    # Creating the "students" table if it doesn't exist
+    create_table_query = """
+    CREATE TABLE IF NOT EXISTS students (
+        student_id INT AUTO_INCREMENT PRIMARY KEY,
+        first_name VARCHAR(50),
+        last_name VARCHAR(50),
+        age INT,
+        grade FLOAT
+    )
+    """
+    cursor.execute(create_table_query)
+
+
+    # Calling functions to perform database operations
+    create_student_record(cursor)
+    update_student_grade(cursor)
+    delete_student(cursor)
+    display_all_students(cursor)
+
+
+    # Committing the changes and closing the connection
+    connection.commit()
+    connection.close()
+
+
+if __name__ == "__main__":
+    main()
